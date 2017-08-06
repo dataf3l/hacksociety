@@ -33,12 +33,12 @@ class HelloWorld(object):
                   "buttons": [
                     {
                       "type": "show_block",
-                      "block_name": "Edad",
+                      "block_name": "step1_is_active",
                       "title": "Yeah"
                     },
                     {
                       "type": "show_block",
-                      "block_name": "non_existing",
+                      "block_name": "step1_is_not_active",
                       "title": "Nope"
                     }
                   ]
@@ -161,9 +161,32 @@ class HelloWorld(object):
         }"""
 
     @cherrypy.expose
+    def step1_is_active(self, **json):
+        global cust
+        cust["client_is_active"] = "1"
+        print(cust)
+        return """{
+         "messages": [
+           {"text": "Wonderful!"}
+         ]
+        }"""
+
+    @cherrypy.expose
+    def step1_is_not_active(self, **json):
+        global cust
+        cust["client_is_active"] = "0"
+        print(cust)
+        return """{
+         "messages": [
+           {"text": "Wonderful!"}
+         ]
+        }"""
+
+    @cherrypy.expose
     def step4_income1(self, **json):
         global cust
         cust["income_class"] = "1"
+        cust["segmento"] = "1"
         print(cust)
         return self.done()
 
@@ -199,6 +222,7 @@ class HelloWorld(object):
     def step2_client_is_male(self, **json):
         global cust
         cust["gender"] = "MALE"
+        cust["es_hombre"] = 1
         print(cust)
         return self.ex_or_resident()
 
@@ -206,6 +230,7 @@ class HelloWorld(object):
     def step2_client_is_female(self, **json):
         global cust
         cust["gender"] = "FEMALE"
+        cust["es_hombre"] = 0
         print(cust)
         return self.ex_or_resident()
 
