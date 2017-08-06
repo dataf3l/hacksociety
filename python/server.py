@@ -1,4 +1,6 @@
 import cherrypy
+global cust
+cust = {}
 
 
 class HelloWorld(object):
@@ -14,13 +16,47 @@ class HelloWorld(object):
     """
 
     def index(self, **json):
+        global cust
+        if "customer_name" in json:
+            cust["customer_name"] = json["customer_name"]
+
+        name = ""
+        if "customer_name" in cust:
+            name = cust["customer_name"]
         print(json)
         return """{
-         "messages": [
-           {"text": "hola, todo funciona111"},
-           {"text": "Va a comprar, o que?"}
-         ]
-        }"""
+          "messages": [
+            {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "text": "Hello """ + name + """! do you have an existing financial product with us? ",
+                  "buttons": [
+                    {
+                      "type": "show_block",
+                      "block_name": "Edad",
+                      "title": "Yeah"
+                    },
+                    {
+                      "type": "show_block",
+                      "block_name": "non_existing",
+                      "title": "Nope"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+        """
+
+#        return """{
+#         "messages": [
+#           {"text": "hola, """ + cust["customer_name"] + """"},
+#           {"text": "Siguiente Pregunta"}
+#         ]
+#        }"""
     index.exposed = True
 
 cherrypy.server.socket_host = '0.0.0.0'
