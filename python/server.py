@@ -137,7 +137,7 @@ class HelloWorld(object):
                     {
                       "type": "show_block",
                       "block_name": "step4_income2",
-                      "title": "Between 25000 and 50000"
+                      "title": "25000 - 50000"
                     },
                     {
                       "type": "show_block",
