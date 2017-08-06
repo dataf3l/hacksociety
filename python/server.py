@@ -165,47 +165,49 @@ class HelloWorld(object):
         global cust
         cust["income_class"] = "1"
         print(cust)
-        self.done()
+        return self.done()
 
     @cherrypy.expose
     def step4_income2(self, **json):
         global cust
         cust["income_class"] = "2"
         print(cust)
-        self.done()
+        return self.done()
 
     @cherrypy.expose
     def step4_income3(self, **json):
         global cust
         cust["income_class"] = "3"
         print(cust)
-        self.done()
+        return self.done()
 
     @cherrypy.expose
     def step3_is_colombian(self, **json):
         global cust
         cust["is_colombian"] = "0"
         print(cust)
-        self.ask_income()
+        return self.ask_income()
 
     @cherrypy.expose
     def step3_is_not_colombian(self, **json):
         global cust
         cust["is_colombian"] = "1"
         print(cust)
-        self.ask_income()
+        return self.ask_income()
 
     @cherrypy.expose
     def step2_client_is_male(self, **json):
         global cust
         cust["gender"] = "MALE"
         print(cust)
-        self.ex_or_resident()
+        return self.ex_or_resident()
 
     @cherrypy.expose
     def step2_client_is_female(self, **json):
         global cust
         cust["gender"] = "FEMALE"
+        print(cust)
+        return self.ex_or_resident()
 
 
 #        return """{
