@@ -154,9 +154,20 @@ class HelloWorld(object):
 
     def done(self):
         global cust
+        ic = "1"
+        if "income_class" in cust:
+            ic = cust["income_class"]
+
+        products = ""
+        if ic == "1":
+            products = "Savings Account with Debit Card"
+        if ic == "2":
+            products = "Payroll Account with Debit Card, Premium Credit Card"
+        if ic == "3":
+            products = "Premium Credit Card, Long Term deposits, Mortage"
         return """{
          "messages": [
-           {"text": "Thank you:,"""+cust["customer_name"]+""""}
+           {"text": " """+cust["customer_name"]+""", Given the information provided, We think you might be interested in these products: """+products+""" "}
          ]
         }"""
 
