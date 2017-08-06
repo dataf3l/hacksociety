@@ -91,6 +91,122 @@ class HelloWorld(object):
             cust["age"] = json["age"]
             return self.handle_age()
 
+    def ex_or_resident(self):
+        return """{
+          "messages": [
+            {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "text": "Do you currently reside in Colombia?",
+                  "buttons": [
+                    {
+                      "type": "show_block",
+                      "block_name": "is_colombian",
+                      "title": "yes, I live in Colombia"
+                    },
+                    {
+                      "type": "show_block",
+                      "block_name": "is_not_colombian",
+                      "title": "No"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+        """
+
+    def ask_income(self):
+        return """{
+          "messages": [
+            {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "text": "What is your income?",
+                  "buttons": [
+                    {
+                      "type": "show_block",
+                      "block_name": "step4_income1",
+                      "title": "Less than 25000"
+                    },
+                    {
+                      "type": "show_block",
+                      "block_name": "step4_income2",
+                      "title": "Between 25000 and 50000"
+                    },
+                    {
+                      "type": "show_block",
+                      "block_name": "step4_income3",
+                      "title": "  above 50000+"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+        """
+
+    def done(self):
+        global cust
+        return """{
+         "messages": [
+           {"text": "Thank you:,"""+cust["customer_name"]+""""},
+         ]
+        }"""
+
+    @cherrypy.expose
+    def step4_income1(self, **json):
+        global cust
+        cust["income_class"] = "1"
+        print(cust)
+        self.done()
+
+    @cherrypy.expose
+    def step4_income2(self, **json):
+        global cust
+        cust["income_class"] = "2"
+        print(cust)
+        self.done()
+
+    @cherrypy.expose
+    def step4_income3(self, **json):
+        global cust
+        cust["income_class"] = "3"
+        print(cust)
+        self.done()
+
+    @cherrypy.expose
+    def step3_is_colombian(self, **json):
+        global cust
+        cust["is_colombian"] = "0"
+        print(cust)
+        self.ask_income()
+
+    @cherrypy.expose
+    def step3_is_not_colombian(self, **json):
+        global cust
+        cust["is_colombian"] = "1"
+        print(cust)
+        self.ask_income()
+
+    @cherrypy.expose
+    def step2_client_is_male(self, **json):
+        global cust
+        cust["gender"] = "MALE"
+        print(cust)
+        self.ex_or_resident()
+
+    @cherrypy.expose
+    def step2_client_is_female(self, **json):
+        global cust
+        cust["gender"] = "FEMALE"
+
 
 #        return """{
 #         "messages": [
