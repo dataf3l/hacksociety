@@ -103,12 +103,12 @@ class HelloWorld(object):
                   "buttons": [
                     {
                       "type": "show_block",
-                      "block_name": "is_colombian",
-                      "title": "yes, I live in Colombia"
+                      "block_name": "step3_is_colombian",
+                      "title": "Yes"
                     },
                     {
                       "type": "show_block",
-                      "block_name": "is_not_colombian",
+                      "block_name": "step3_is_not_colombian",
                       "title": "No"
                     }
                   ]
