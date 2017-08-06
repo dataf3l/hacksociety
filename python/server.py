@@ -156,7 +156,7 @@ class HelloWorld(object):
         global cust
         return """{
          "messages": [
-           {"text": "Thank you:,"""+cust["customer_name"]+""""},
+           {"text": "Thank you:,"""+cust["customer_name"]+""""}
          ]
         }"""
 
